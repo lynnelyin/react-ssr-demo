@@ -1,30 +1,17 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const merge = require('webpack-merge');
+const config = require('./webpack.base');
 
-module.exports = {
+const serverConfig = {
   target: 'node',
   mode: 'development',
-  entry: './src/index',
+  entry: './src/server/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'build')
   },
-  externals: [nodeExternals()],
-  module: {
-    rules: [
-      {
-        test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: ['@babel/react', ['@babel/preset-env', {
-            targets: {
-              // 兼容到浏览器的最新两个版本 
-              browsers: ['last 2 versions']     
-            }
-          }]]
-        }
-      }
-    ]
-  }
-}
+  externals: [nodeExternals()]
+};
+
+module.exports = merge(config, serverConfig);
