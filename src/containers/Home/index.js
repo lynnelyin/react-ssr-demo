@@ -23,7 +23,10 @@ class Home extends Component {
 
   // 在服务端渲染的时候不会执行
   componentDidMount() {
-    this.props.getHomeList();
+    // 如果首次进入的页面不是 /，服务端就不会获取数据放在store里
+    if (!this.props.list.length) {
+      this.props.getHomeList();
+    }
   }
 }
 
