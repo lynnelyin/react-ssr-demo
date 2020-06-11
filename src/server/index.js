@@ -15,7 +15,7 @@ app.use('/api', proxy('http://47.95.113.63', {
 }));
 
 app.get('*', function (req, res) {
-  const store = getStore();
+  const store = getStore(req);
 
   // 结合当前用户请求地址和路由，做判断，
   // 拿到异步数据，并填充到store之中
@@ -42,8 +42,6 @@ app.get('*', function (req, res) {
       promises.push(item.route.loadData(store));
     }
   })
-
-  console.log(promises);
 
   Promise.all(promises).then(() => {
     res.send(render(req, routes, store));

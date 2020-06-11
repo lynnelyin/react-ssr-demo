@@ -15,10 +15,10 @@ const reducer = combineReducers({
 const store = createStore(reducer, applyMiddleware(thunk));
 */
 
-export const getStore = () => {
+export const getStore = (req) => {
   // 改变服务器端store的内容，那么就一定要使用serverAxios
   // withExtraArgument传递的参数，可以在异步action的第三个参数中获取到
-  return createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios)));
+  return createStore(reducer, applyMiddleware(thunk.withExtraArgument(serverAxios(req))));
 }
 
 export const getClientStore = () => {
