@@ -43,6 +43,8 @@ app.get('*', function (req, res) {
     }
   })
 
+  console.log(promises);
+
   Promise.all(promises).then(() => {
     res.send(render(req, routes, store));
   })
